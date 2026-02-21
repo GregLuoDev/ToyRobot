@@ -1,11 +1,7 @@
-import { DIRECTION_ENUM } from "../utils/constants.js";
-import { isValidPositionOnTable } from "../utils/isValidPositionOnTable.js";
+import { DIRECTION_ENUM } from "../core/constants.js";
+import { isValidPosition } from "../utils/isValidPosition.js";
 
 export function moveToyRobot(toyRobot) {
-  if (!isValidPositionOnTable(toyRobot?.position)) {
-    return;
-  }
-
   let newPosition = { ...toyRobot.position };
 
   switch (toyRobot.direction) {
@@ -23,7 +19,7 @@ export function moveToyRobot(toyRobot) {
       break;
   }
 
-  if (isValidPositionOnTable(newPosition)) {
+  if (isValidPosition(newPosition)) {
     return { ...toyRobot, position: newPosition };
   }
 

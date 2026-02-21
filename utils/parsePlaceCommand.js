@@ -1,4 +1,4 @@
-import { DIRECTION_ARRAY } from "./constants.js";
+import { DIRECTION_ARRAY } from "../core/constants.js";
 
 export function parsePlaceCommand(commandParts) {
   const command = commandParts.join(" ");
@@ -18,8 +18,8 @@ export function parsePlaceCommand(commandParts) {
     return;
   }
 
-  const x = +placeParameters[0];
-  const y = +placeParameters[1];
+  const x = +placeParameters[0].trim();
+  const y = +placeParameters[1].trim();
   if (isNaN(x) || isNaN(y)) {
     console.log(
       `The position of the PLACE command (${command}) is invalid. The position must be numbers: X, Y.`,
@@ -27,7 +27,7 @@ export function parsePlaceCommand(commandParts) {
     return;
   }
 
-  const direction = placeParameters[2];
+  const direction = placeParameters[2].trim();
   const index = DIRECTION_ARRAY.indexOf(direction);
   if (index === -1) {
     console.log(

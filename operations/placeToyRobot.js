@@ -1,5 +1,5 @@
-import { isValidPositionOnTable } from "../utils/isValidPositionOnTable.js";
-import { Position, ToyRobot } from "../utils/model.js";
+import { isValidPosition } from "../utils/isValidPosition.js";
+import { Position, ToyRobot } from "../core/model.js";
 import { parsePlaceCommand } from "../utils/parsePlaceCommand.js";
 
 export function placeToyRobot(commandParts) {
@@ -10,7 +10,7 @@ export function placeToyRobot(commandParts) {
   const { x, y, direction } = parsedObject;
 
   const newPosition = new Position(x, y);
-  if (isValidPositionOnTable(newPosition)) {
+  if (isValidPosition(newPosition)) {
     return new ToyRobot(direction, newPosition);
   }
 }
