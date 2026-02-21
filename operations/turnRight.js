@@ -1,25 +1,14 @@
 import { isValidPositionOnTable } from "../utils/isValidPositionOnTable.js";
-import { DIRECTION } from "../utils/model.js";
+import { DIRECTION_ARRAY } from "../utils/constants.js";
 
 export function turnRight(toyRobot) {
   if (!isValidPositionOnTable(toyRobot?.position)) {
     return toyRobot;
   }
 
-  switch (toyRobot.direction) {
-    case DIRECTION.NORTH:
-      toyRobot.direction = DIRECTION.EAST;
-      break;
-    case DIRECTION.EAST:
-      toyRobot.direction = DIRECTION.SOUTH;
-      break;
-    case DIRECTION.SOUTH:
-      toyRobot.direction = DIRECTION.WEST;
-      break;
-    case DIRECTION.WEST:
-      toyRobot.direction = DIRECTION.NORTH;
-      break;
-  }
+  const index = DIRECTION_ARRAY.indexOf(toyRobot.direction);
+  const newIndex = (index + 1) % 4;
+  const newDirection = DIRECTION_ARRAY[newIndex];
 
-  return toyRobot;
+  return { ...toyRobot, direction: newDirection };
 }

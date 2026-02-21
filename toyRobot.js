@@ -4,33 +4,20 @@ import { placeToyRobot } from "./operations/placeToyRobot.js";
 import { turnLeft } from "./operations/turnLeft.js";
 import { turnRight } from "./operations/turnRight.js";
 import readline from "readline";
-import { COMMAND } from "./utils/model.js";
+import { COMMAND } from "./utils/constants.js";
+import { gameIntroduction } from "./utils/gameIntroduction.js";
 
-// Create input interface
-const rl = readline.createInterface({
+const reader = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-console.log("Toy Robot");
-console.log("Commands:");
-console.log(
-  "PLACE X,Y,F   => Put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST",
-);
-console.log(
-  "MOVE   => Move the toy robot one unit forward in the direction it is currently facing.",
-);
-console.log(
-  "LEFT   => Rotate the robot -90 degrees in the specified direction",
-);
-console.log("RIGHT  => Rotate the robot 90 degrees in the specified direction");
-console.log("REPORT => Announce the X,Y and F of the robot");
-console.log("QUIT   => Quit the game");
+gameIntroduction();
 
 let toyRobot;
 
 function askForCommand() {
-  rl.question("\nPlease enter command: ", (input) => {
+  reader.question("\nPlease enter command: ", (input) => {
     const commandString = input.trim().replace(/\s+/g, " ").toUpperCase();
     const commandParts = commandString.split(" ");
     const command = commandParts[0];
@@ -52,10 +39,10 @@ function askForCommand() {
         generateReport(toyRobot);
         break;
       case COMMAND.QUIT:
-        rl.close();
+        reader.close();
         return;
       default:
-        console.log("Unknown command.");
+        console.log("Invalid command.");
     }
 
     askForCommand();
